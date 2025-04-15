@@ -1,0 +1,17 @@
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\xunit.abstractions.dll
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\xunit.runner.visualstudio.testadapter.dll
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\Core.PosTech8Nett.Tests.deps.json
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\Core.PosTech8Nett.Tests.runtimeconfig.json
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\Core.PosTech8Nett.Tests.dll
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\bin\Debug\net8.0\Core.PosTech8Nett.Tests.pdb
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.csproj.AssemblyReference.cache
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.AssemblyInfoInputs.cache
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.AssemblyInfo.cs
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.csproj.CoreCompileInputs.cache
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.sourcelink.json
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.dll
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\refint\Core.PosTech8Nett.Tests.dll
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.pdb
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\Core.PosTech8Nett.Tests.genruntimeconfig.cache
+C:\Projetos\PosTech-Fiap\FiapPosTechChallenge\tests\Core.PosTech8Nett.Tests\obj\Debug\net8.0\ref\Core.PosTech8Nett.Tests.dll
