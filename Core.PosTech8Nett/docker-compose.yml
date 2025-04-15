@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  core.postech8nett.api:
+    image: ${DOCKER_REGISTRY-}corepostech8nettapi
+    build:
+      context: .
+      dockerfile: src/Core.PosTech8Nett.Api/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+# Banco de dados
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "huaHhbSyjn9bttt"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:
