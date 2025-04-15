@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Core.PosTech8Nett.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00da911702fb4836ea1d0feffd42582654e9f99d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+411675a800cebe5b00c2ce79679314d40b77b38f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Core.PosTech8Nett.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Core.PosTech8Nett.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
