@@ -1,20 +1,30 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Core.PosTech8Nett
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Decisões
+    - **API**: É o projeto de inicialização.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+- I split the project of Tests into layers
+	- **Domain**: Where unit tests for business rules and validators of contracts
+	- **Fixtures**: Extensions for validators of FluentAssertions and  AutoFixture  to data attributes
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## Frameworks
+- Este projeto roda em .net8.0, você pode baixar [here](https://dotnet.microsoft.com/pt-br/download/dotnet/8.0)
+- Para testar, este projeto usa `xUnit`, `Moq`, `NSubstitute` e `FluentAssertions`
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Dependências
+- SqlServer
+
+## Rodar
+
+Na raiz deste projeto, execute:
+```
+$ dotnet build
+$ dotnet run
+```
+Este projeto usa imagens privadas em dockerfile. É pré-requisito ter o Visual Studio.
+
+### Rodar testes
+Na raiz do projeto, execute:
+```
+$ dotnet test
+```
