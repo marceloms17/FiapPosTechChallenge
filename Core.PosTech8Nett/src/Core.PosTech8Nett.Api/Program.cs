@@ -1,4 +1,5 @@
 using Asp.Versioning.ApiExplorer;
+using Core.PosTech8Nett.Api.Infra.Auth;
 using Core.PosTech8Nett.Api.Infra.Swagger;
 using Core.PosTech8Nett.Api.Infra.Versioning;
 using Microsoft.AspNetCore.Builder;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddVersioning();
 builder.Services.AddSwaggerDocumentation();
-
+builder.Services.AddAuthorizationExtension();
 
 var app = builder.Build();
 
@@ -25,5 +26,7 @@ app.UseSwaggerUI(options =>
 });
 
 app.MapControllers();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
