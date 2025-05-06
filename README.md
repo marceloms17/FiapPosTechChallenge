@@ -16,7 +16,11 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 - Clean Architecture (separação em camadas)
 - Docker (planejado)
 - GitHub Projects + Kanban
+---
 
+## Documentos
+- EventStorming: https://miro.com/app/board/uXjVI-mHcaQ=/
+- Domain Storytelling: https://egon.io/app/
 ---
 
 ## 🧱 Estrutura do Projeto
