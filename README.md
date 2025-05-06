@@ -19,7 +19,7 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 ---
 
 ## Documentos
-- EventStorming: https://miro.com/app/board/uXjVI-mHcaQ=/
+- EventStorming:(https://miro.com/app/board/uXjVI-mHcaQ=/?share_link_id=658453906053)
 - Domain Storytelling: https://egon.io/app/
 ---
 
