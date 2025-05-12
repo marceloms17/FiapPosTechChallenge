@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Core.PosTech8Nett.Api.Infra.Swagger
+namespace Core.PosTech8Nett.Api.Infra.Swagger.Middleware
 {
     [ExcludeFromCodeCoverage]
     public static class SwaggerMiddlewareExtension
@@ -16,8 +16,8 @@ namespace Core.PosTech8Nett.Api.Infra.Swagger
 
                 foreach (var description in versionProvider.ApiVersionDescriptions)
                 {
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", $"API {description.GroupName.ToUpperInvariant()}");
                     options.RoutePrefix = "swagger";
-                    options.SwaggerEndpoint($"../swagger/{description.GroupName}/swagger.json", description.GroupName);
                 }
             });
 

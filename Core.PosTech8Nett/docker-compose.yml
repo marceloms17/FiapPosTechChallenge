@@ -16,6 +16,7 @@ services:
     container_name: sqlserver
     ports:
       - "1433:1433"
+    # mem_limit: 3072M
     environment:
       SA_PASSWORD: "huaHhbSyjn9bttt"
       ACCEPT_EULA: "Y"

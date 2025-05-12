@@ -9,11 +9,11 @@ using System.Linq;
 using Core.PosTech8Nett.Api.Infra.Logs.Models;
 using Serilog;
 
-namespace Core.PosTech8Nett.Api.Infra.Logs
+namespace Core.PosTech8Nett.Api.Infra.Logs.Filter
 {
     public class LogRequestActionFilter : IAsyncActionFilter
     {
-        static readonly ILogger Log = global::Serilog.Log.ForContext<LogRequestActionFilter>();
+        static readonly ILogger Log = Serilog.Log.ForContext<LogRequestActionFilter>();
         const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} {@RequestBody} responded {@ResponseBody} {StatusCode} in {Elapsed:0.0000} ms";
 
         public delegate IActionResult Del(ActionExecutedContext actionExecutingContext);

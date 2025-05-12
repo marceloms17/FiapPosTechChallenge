@@ -6,13 +6,14 @@ using System.Linq;
 using Serilog.Events;
 using Serilog;
 
-namespace Core.PosTech8Nett.Api.Infra.Logs
+namespace Core.PosTech8Nett.Api.Infra.Logs.Middleware
 {
     public class LogSimpleRequestMiddleware
     {
         const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
 
-        static readonly ILogger Log = global::Serilog.Log.ForContext<LogSimpleRequestMiddleware>();
+        static readonly ILogger Log = Serilog.Log.ForContext<LogSimpleRequestMiddleware>();
+      
 
         readonly RequestDelegate _next;
 

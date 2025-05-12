@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 
-namespace Core.PosTech8Nett.Api.Infra.Swagger
+namespace Core.PosTech8Nett.Api.Infra.Swagger.Extension
 {
     [ExcludeFromCodeCoverage]
     public static class SwaggerServicesExtension

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Core.PosTech8Nett.Api.Infra.Versioning
+namespace Core.PosTech8Nett.Api.Infra.Versioning.Extension
 {
     [ExcludeFromCodeCoverage]
     public static class ApiVersioningProviderServiceExtension

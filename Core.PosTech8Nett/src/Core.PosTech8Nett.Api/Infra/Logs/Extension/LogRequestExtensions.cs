@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 using System;
-using Asp.Versioning;
+using Core.PosTech8Nett.Api.Infra.Logs.Filter;
+using Core.PosTech8Nett.Api.Infra.Logs.Middleware;
 
-namespace Core.PosTech8Nett.Api.Infra.Logs
+namespace Core.PosTech8Nett.Api.Infra.Logs.Extension
 {
     [ExcludeFromCodeCoverage]
     public static class LogRequestExtensions
@@ -18,9 +19,10 @@ namespace Core.PosTech8Nett.Api.Infra.Logs
             return app.UseMiddleware<LogSimpleRequestMiddleware>();
         }
 
-        public static ApiVersioningOptions AddLogRequestFilter(this MvcOptions op)
+        public static MvcOptions AddLogRequestFilter(this MvcOptions op)
         {
             op.Filters.Add<LogRequestActionFilter>();
+            
             return op;
         }
     }
