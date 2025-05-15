@@ -10,9 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Entities\Games\**" />
+    <Compile Remove="Infra\HealthCheck\**" />
+    <Content Remove="Domain\Entities\Games\**" />
+    <Content Remove="Infra\HealthCheck\**" />
+    <EmbeddedResource Remove="Domain\Entities\Games\**" />
+    <EmbeddedResource Remove="Infra\HealthCheck\**" />
+    <None Remove="Domain\Entities\Games\**" />
+    <None Remove="Infra\HealthCheck\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
-    <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
@@ -32,11 +42,6 @@
     <PackageReference Include="Serilog.Exceptions" Version="8.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\Entities\Games\" />
-    <Folder Include="Infra\HealthCheck\" />
   </ItemGroup>
 
 </Project>

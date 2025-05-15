@@ -4,6 +4,8 @@ using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.EntityConfig.UserInfo
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.EntityConfig.GameInformation;
+
 
 namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context
 {
@@ -42,7 +44,12 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context
 
             builder.ApplyConfiguration(new AddressConfiguration());
             builder.ApplyConfiguration(new ContactConfiguration());
-            
+
+            builder.ApplyConfiguration(new GameConfiguration());
+            builder.ApplyConfiguration(new GenreTypesConfiguration());
+            builder.ApplyConfiguration(new GameGenresConfiguration());
+
+
         }
     }
 }

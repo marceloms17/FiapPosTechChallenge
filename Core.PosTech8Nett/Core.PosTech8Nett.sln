@@ -23,6 +23,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.PosTech8Nett.Test", "tests\Core.PosTech8Nett.Test\Core.PosTech8Nett.Test.csproj", "{FE47F566-B045-4619-9AFB-A9C0DC76AB48}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		TablePrefixing.md = TablePrefixing.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +53,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{ADF04E0B-3318-4FF3-BAFC-25BD12751E9D} = {1E9FBE68-2052-481D-83E1-A88FB3D9661D}
 		{FE47F566-B045-4619-9AFB-A9C0DC76AB48} = {4B9536A3-4B8C-47F0-8270-EE579424EA3A}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {5415BC13-252F-46BD-9FF9-F236C8F692A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA8AF211-57F2-4593-8A32-1FD12930804B}
