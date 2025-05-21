@@ -29,7 +29,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.EntityConfig.Iden
 
             builder.Property(u => u.CreatedAt).ValueGeneratedOnAdd();
 
-            builder.Property(u => u.UpdateAt).ValueGeneratedOnAddOrUpdate();
+            builder.Property(u => u.UpdateAt);
 
             builder.Ignore(u => u.PhoneNumber);
             builder.Ignore(u => u.PhoneNumberConfirmed);

@@ -1,6 +1,7 @@
 using Asp.Versioning.ApiExplorer;
 using Core.PosTech8Nett.Api.Infra.Auth.Extension;
 using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context;
+using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed;
 using Core.PosTech8Nett.Api.Infra.Identity.Extension;
 using Core.PosTech8Nett.Api.Infra.Logs;
 using Core.PosTech8Nett.Api.Infra.Logs.Extension;
@@ -36,5 +37,7 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCorrelationId();
+
+await app.SeedIdentityAsync();
 
 app.Run();
