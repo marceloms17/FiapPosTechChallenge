@@ -10,6 +10,7 @@ using Core.PosTech8Nett.Api.Infra.Services.Extensions;
 using Core.PosTech8Nett.Api.Infra.Swagger.Extension;
 using Core.PosTech8Nett.Api.Infra.Swagger.Middleware;
 using Core.PosTech8Nett.Api.Infra.Versioning.Extension;
+using Core.PosTech8Nett.Api.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,7 @@ builder.AddAuthorizationExtension();
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
 builder.Services.AddSwaggerDocumentation();
+builder.Services.AddAutoMapper(typeof(UsersEntitieMapperProfile));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddIdentityExtension();
@@ -37,7 +39,5 @@ app.MapControllers();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseCorrelationId();
-
-await app.SeedIdentityAsync();
 
 app.Run();

@@ -1,17 +1,14 @@
 ﻿using Core.PosTech8Nett.Api.Domain.Entities.UserInformation;
-using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 
-namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
+namespace Core.PosTech8Nett.Api.Domain.Model.User.Responses
 {
-    public class Users: IdentityUser<Guid>
+    public class UserResponse
     {
-        public Users()
-        {
-            Id = Guid.NewGuid();
-        }
-
+        public Guid Id { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public DateTimeOffset? LockoutEnd { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
@@ -20,6 +17,5 @@ namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
         public DateTime UpdateAt { get; set; }
         public Address Address { get; set; }
         public Contact Contact { get; set; }
-        public List<UserRoles> UserRoles { get; set; }
     }
 }

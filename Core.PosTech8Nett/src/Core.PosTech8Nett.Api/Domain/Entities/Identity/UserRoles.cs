@@ -5,7 +5,7 @@ namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
 {
     public class UserRoles  : IdentityUserRole<Guid>
     {
-        public Users User { get; set; }
+        public UsersEntitie User { get; set; }
         public Roles Role { get; set; }
     }
 }

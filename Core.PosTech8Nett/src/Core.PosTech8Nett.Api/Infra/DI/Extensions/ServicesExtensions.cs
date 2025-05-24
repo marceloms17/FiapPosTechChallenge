@@ -12,10 +12,12 @@ namespace Core.PosTech8Nett.Api.Infra.Services.Extensions
         {
 
             // Repository
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
 
             //Services
             services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IAuthenticationServices, AuthenticationServices>();
 
             return services;
         }

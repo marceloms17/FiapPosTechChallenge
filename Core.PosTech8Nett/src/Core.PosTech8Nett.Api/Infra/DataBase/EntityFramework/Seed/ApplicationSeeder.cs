@@ -19,7 +19,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed
             var logger = services.GetRequiredService<ILoggerFactory>().CreateLogger("Seed");
             var configuration = services.GetRequiredService<IConfiguration>();
             var roleManager = services.GetRequiredService<RoleManager<Roles>>();
-            var userManager = services.GetRequiredService<UserManager<Users>>();
+            var userManager = services.GetRequiredService<UserManager<UsersEntitie>>();
 
             await IdentitySeeder.SeedRolesAsync(roleManager, logger);
             await IdentitySeeder.SeedAdminUserAsync(userManager, roleManager, logger, configuration);

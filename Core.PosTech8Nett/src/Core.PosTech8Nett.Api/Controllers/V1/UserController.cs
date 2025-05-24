@@ -1,5 +1,7 @@
 ﻿using Asp.Versioning;
-using Core.PosTech8Nett.Api.Domain.Model.User;
+using Core.PosTech8Nett.Api.Domain.Model.User.Requests;
+using Core.PosTech8Nett.Api.Domain.Model.User.Responses;
+using Core.PosTech8Nett.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading;
@@ -13,23 +15,62 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
     [ApiVersion("1.0")]
     public class UserController : ControllerBase
     {
-        [ProducesResponseType((int)HttpStatusCode.OK)]
+        private readonly IUserServices _userServices;
+        public UserController(IUserServices userServices)
+        {
+            _userServices = userServices;
+        }
+
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [HttpGet]
-        public async Task<IActionResult> GetUser([FromRoute] GetUserModel request, CancellationToken cancellationToken = default)
+        [HttpGet("GetByEmail")]
+        public async Task<IActionResult> GetByEmail([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
         {
+            var result = await _userServices.GetByEmailAsync(request);
+            return Ok(result);
+        }
 
-            return null;
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [HttpGet("GetByNickName")]
+        public async Task<IActionResult> GetNickName([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _userServices.GetByEmailAsync(request);
+            return Ok(result);
+        }
+
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [HttpGet("GetById")]
+        public async Task<IActionResult> GetById([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _userServices.GetByEmailAsync(request);
+            return Ok(result);
+        }
+
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(UserResponse))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [HttpGet("List")]
+        public async Task<IActionResult> List([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _userServices.GetByEmailAsync(request);
+            return Ok(result);
         }
 
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [HttpPatch]
-        public async Task<IActionResult> UpdatetUser([FromBody] UpdateUserModel request, CancellationToken cancellationToken = default)
+        [HttpPatch("Update")]
+        public async Task<IActionResult> UpdatetUser([FromBody] UpdateUserRequest request, CancellationToken cancellationToken = default)
         {
 
             return null;

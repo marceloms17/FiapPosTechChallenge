@@ -39,7 +39,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed
         }
 
         public static async Task SeedAdminUserAsync(
-            UserManager<Users> userManager,
+            UserManager<UsersEntitie> userManager,
             RoleManager<Roles> roleManager,
             ILogger logger,
             IConfiguration configuration)
@@ -51,7 +51,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed
 
             if (adminUser == null)
             {
-                adminUser = new Users
+                adminUser = new UsersEntitie
                 {
                     Id = Guid.NewGuid(),
                     UserName = adminEmail,

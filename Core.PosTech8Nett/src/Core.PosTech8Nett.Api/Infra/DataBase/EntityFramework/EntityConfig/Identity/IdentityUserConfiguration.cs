@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.EntityConfig.Identity
 {
-    public class IdentityUserConfiguration : IEntityTypeConfiguration<Users>
+    public class IdentityUserConfiguration : IEntityTypeConfiguration<UsersEntitie>
     {
-        public void Configure(EntityTypeBuilder<Users> builder)
+        public void Configure(EntityTypeBuilder<UsersEntitie> builder)
         {
             builder.Property(u => u.Email)
                 .IsRequired()

@@ -12,14 +12,14 @@ namespace Core.PosTech8Nett.Tests.Controllers
 {
     public class AuthenticationControllerTests
     {
-        private readonly Mock<UserManager<Users>> _userManagerMock;
+        private readonly Mock<UserManager<UsersEntitie>> _userManagerMock;
         private readonly Mock<IConfiguration> _configMock;
         private readonly AuthenticationController _controller;
 
         public AuthenticationControllerTests()
         {
-            var store = new Mock<IUserStore<Users>>();
-            _userManagerMock = new Mock<UserManager<Users>>(store.Object, null, null, null, null, null, null, null, null);
+            var store = new Mock<IUserStore<UsersEntitie>>();
+            _userManagerMock = new Mock<UserManager<UsersEntitie>>(store.Object, null, null, null, null, null, null, null, null);
             _configMock = new Mock<IConfiguration>();
 
             // Setup JWT settings
@@ -34,7 +34,7 @@ namespace Core.PosTech8Nett.Tests.Controllers
         public async Task DadoUsuarioValido_QuandoLogin_EntaoRetornaToken()
         {
             // Given
-            var user = new Users { Id = System.Guid.NewGuid(), Email = "admin@admin.com", UserName = "admin@admin.com" };
+            var user = new UsersEntitie { Id = System.Guid.NewGuid(), Email = "admin@admin.com", UserName = "admin@admin.com" };
             _userManagerMock.Setup(x => x.FindByEmailAsync(user.Email)).ReturnsAsync(user);
             _userManagerMock.Setup(x => x.CheckPasswordAsync(user, "Admin@123")).ReturnsAsync(true);
             _userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin" });
@@ -58,7 +58,7 @@ namespace Core.PosTech8Nett.Tests.Controllers
         public async Task DadoEmailInexistente_QuandoLogin_EntaoRetornaUnauthorized()
         {
             // Given
-            _userManagerMock.Setup(x => x.FindByEmailAsync("notfound@email.com")).ReturnsAsync((Users)null);
+            _userManagerMock.Setup(x => x.FindByEmailAsync("notfound@email.com")).ReturnsAsync((UsersEntitie)null);
 
             var loginModel = new LoginModel { Email = "notfound@email.com", Password = "qualquer" };
 
@@ -73,7 +73,7 @@ namespace Core.PosTech8Nett.Tests.Controllers
         public async Task DadoSenhaIncorreta_QuandoLogin_EntaoRetornaUnauthorized()
         {
             // Given
-            var user = new Users { Id = System.Guid.NewGuid(), Email = "user@test.com" };
+            var user = new UsersEntitie { Id = System.Guid.NewGuid(), Email = "user@test.com" };
             _userManagerMock.Setup(x => x.FindByEmailAsync(user.Email)).ReturnsAsync(user);
             _userManagerMock.Setup(x => x.CheckPasswordAsync(user, "errada")).ReturnsAsync(false);
 

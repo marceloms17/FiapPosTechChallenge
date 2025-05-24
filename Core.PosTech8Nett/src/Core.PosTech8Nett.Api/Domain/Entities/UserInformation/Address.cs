@@ -16,6 +16,6 @@ namespace Core.PosTech8Nett.Api.Domain.Entities.UserInformation
         public string Complement { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public Users User { get; set; }
+        public UsersEntitie User { get; set; }
     }
 }

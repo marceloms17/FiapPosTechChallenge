@@ -13,7 +13,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context
     /// Represents the application's database context, providing access to the database and its entities.  
     /// </summary>  
     public class ApplicationDbContext : IdentityDbContext<
-    Users,
+    UsersEntitie,
     Roles,
     Guid,
     UserClaims,

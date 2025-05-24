@@ -9,7 +9,7 @@ namespace Core.PosTech8Nett.Api.Infra.Identity.Extension
     {
         public static IServiceCollection AddIdentityExtension(this IServiceCollection services)
         {
-            services.AddIdentity<Users, Roles>()
+            services.AddIdentity<UsersEntitie, Roles>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
