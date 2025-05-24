@@ -1,8 +1,13 @@
 ﻿using Core.PosTech8Nett.Api.Domain.Entities.Identity;
+using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed
@@ -71,9 +76,27 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed
                 }
             }
 
-            if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+       
+
+            var roleExists = await userManager.IsInRoleAsync(adminUser, "Admin");
+            if (roleExists is false)
             {
-                await userManager.AddToRoleAsync(adminUser, "Admin");
+                var role = await roleManager.FindByNameAsync("Admin");
+
+                var userRole = new UserRoles
+                {
+                    UserId = adminUser.Id,
+                    RoleId = role.Id
+                };
+              
+
+                var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                optionsBuilder.UseSqlServer("Server=sqlserver;Database=pos_tech_staging;User=sa;Password=huaHhbSyjn9bttt;TrustServerCertificate=true;MultipleActiveResultSets=true");
+
+                using var dbContext = new ApplicationDbContext(optionsBuilder.Options);
+                dbContext.UserRoles.Add(userRole);
+                dbContext.SaveChanges();
+
                 logger.LogInformation("Usuário admin adicionado à role 'Admin'.");
             }
         }
