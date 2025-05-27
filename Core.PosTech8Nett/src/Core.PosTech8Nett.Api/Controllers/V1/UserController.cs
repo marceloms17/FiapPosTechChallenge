@@ -37,9 +37,9 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HttpGet("GetByNickName")]
-        public async Task<IActionResult> GetNickName([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetNickName([FromQuery] GetUserByNickNameRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _userServices.GetByEmailAsync(request);
+            var result = await _userServices.GetByNickNameAsync(request);
             return Ok(result);
         }
 
@@ -48,9 +48,9 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HttpGet("GetById")]
-        public async Task<IActionResult> GetById([FromQuery] GetUserByEmailRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetById([FromQuery] GetUserByIdRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _userServices.GetByEmailAsync(request);
+            var result = await _userServices.GetByIdAsync(request);
             return Ok(result);
         }
 

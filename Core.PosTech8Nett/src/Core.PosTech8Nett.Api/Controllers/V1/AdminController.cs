@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Threading.Tasks;
 using System.Threading;
+using Core.PosTech8Nett.Api.Services.Interfaces;
 
 namespace Core.PosTech8Nett.Api.Controllers.V1
 {
@@ -13,16 +14,21 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
     [ApiVersion("1.0")]
     public class AdminController : ControllerBase
     {
+        private readonly IUserServices _userServices;
+        public AdminController(IUserServices userServices)
+        {
+            _userServices = userServices;
+        }
 
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HttpPatch("Block")]
-        public async Task<IActionResult> BlockUser([FromBody] UpdateUserRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> BlockUser([FromBody] BlockUserRequest request, CancellationToken cancellationToken = default)
         {
-
-            return null;
+            await _userServices.BlockUserAsync(request);
+            return NoContent();
         }
 
         [ProducesResponseType((int)HttpStatusCode.OK)]
@@ -30,10 +36,10 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [HttpDelete("Delete")]
-        public async Task<IActionResult> DeleteUser([FromBody] UpdateUserRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
         {
-
-            return null;
+            await _userServices.DeleteAsync(request);
+            return NoContent();
         }
     }
 }

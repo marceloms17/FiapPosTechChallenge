@@ -6,9 +6,8 @@ using Core.PosTech8Nett.Api.Domain.Model.User.Responses;
 using Core.PosTech8Nett.Api.Domain.Validations.User;
 using Core.PosTech8Nett.Api.Infra.DataBase.Repository.Interfaces;
 using Core.PosTech8Nett.Api.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
+using FluentValidation;
 using System;
-using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Services
@@ -23,9 +22,22 @@ namespace Core.PosTech8Nett.Api.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<bool> BlockUserAsync(CreateUserRequest request)
+        public async Task BlockUserAsync(BlockUserRequest request)
         {
-            throw new NotImplementedException();
+            var resultValidate = new BlockUserRequestValidator().Validate(request);
+            if (resultValidate.IsValid is false)
+            {
+                var messages = string.Concat("Message is invalid, validation errors: ", resultValidate.Errors.ConvertToString());
+                throw new Exception(messages);
+            }
+
+            var data = await _userRepository.GetByIdAsync(request.Id);
+            if (data is null)
+            {
+                throw new Exception("Usuario não encontrado.");
+            }
+
+            await _userRepository.BlockUserAsync(data, request.EnableBlocking);
         }
 
         public async Task CreateAsync(CreateUserRequest request)
@@ -34,34 +46,61 @@ namespace Core.PosTech8Nett.Api.Services
             await _userRepository.CreateAsync(persistence, request.Password);
         }
 
-        public Task<bool> DeleteAsync(CreateUserRequest request)
+        public async Task DeleteAsync(DeleteUserRequest request)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<UserResponse> GetByEmailAsync(GetUserByEmailRequest request)
-        {
-            var resultValidate = new GetUserByEmailRequestValidator().Validate(request);
-
+            var resultValidate = new DeleteUserRequestValidator().Validate(request);
             if (resultValidate.IsValid is false)
             {
                 var messages = string.Concat("Message is invalid, validation errors: ", resultValidate.Errors.ConvertToString());
                 throw new Exception(messages);
             }
 
-           var data = await _userRepository.GetByEmailAsync(request.Email);
+            var data = await _userRepository.GetByIdAsync(request.Id);
+            if (data is null)
+            {
+                throw new Exception("Usuario não encontrado.");
+            }
 
-           return _mapper.Map<UserResponse>(data);
+            await _userRepository.DeleteAsync(data);
         }
 
-        public Task<UserResponse> GetByIdAsync(GetUserByEmailRequest request)
+        public async Task<UserResponse> GetByEmailAsync(GetUserByEmailRequest request)
         {
-            throw new NotImplementedException();
+            var resultValidate = new GetUserByEmailRequestValidator().Validate(request);
+            if (resultValidate.IsValid is false)
+            {
+                var messages = string.Concat("Message is invalid, validation errors: ", resultValidate.Errors.ConvertToString());
+                throw new Exception(messages);
+            }
+
+            var data = await _userRepository.GetByEmailAsync(request.Email);
+            return _mapper.Map<UserResponse>(data);
         }
 
-        public Task<UserResponse> GetByNickNameAsync(GetUserByEmailRequest request)
+        public async Task<UserResponse> GetByIdAsync(GetUserByIdRequest request)
         {
-            throw new NotImplementedException();
+            var resultValidate = new GetUserByIdRequestValidator().Validate(request);
+            if (resultValidate.IsValid is false)
+            {
+                var messages = string.Concat("Message is invalid, validation errors: ", resultValidate.Errors.ConvertToString());
+                throw new Exception(messages);
+            }
+
+            var data = await _userRepository.GetByIdAsync(request.Id);
+            return _mapper.Map<UserResponse>(data);
+        }
+
+        public async Task<UserResponse> GetByNickNameAsync(GetUserByNickNameRequest request)
+        {
+            var resultValidate = new GetUserByNickNameRequestValidator().Validate(request);
+            if (resultValidate.IsValid is false)
+            {
+                var messages = string.Concat("Message is invalid, validation errors: ", resultValidate.Errors.ConvertToString());
+                throw new Exception(messages);
+            }
+
+            var data = await _userRepository.GetByNicknameAsync(request.NickName);
+            return _mapper.Map<UserResponse>(data);
         }
 
         public Task<UserResponse> UpdateAsync(CreateUserRequest request)

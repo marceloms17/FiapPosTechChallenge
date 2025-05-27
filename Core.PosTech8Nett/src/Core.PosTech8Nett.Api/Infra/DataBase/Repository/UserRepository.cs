@@ -9,14 +9,16 @@ using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
 {
-    public class UserRepository : Repository<UsersEntitie>, IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly UserManager<UsersEntitie> _userManager;
-        public UserRepository(UserManager<UsersEntitie> userManager, ApplicationDbContext context) : base(context)
+        private readonly ApplicationDbContext _context;
+
+        public UserRepository(UserManager<UsersEntitie> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
-
 
         public async Task CreateAsync(UsersEntitie entity, string password)
         {
@@ -27,13 +29,8 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
                 throw new Exception("Erro ao criar usuario");
             }
 
-          //  await _userManager.AddToRoleAsync(entity, "user");
+            //  await _userManager.AddToRoleAsync(entity, "user");
 
-        }
-
-        public async Task AddAsync(UsersEntitie entity, string password)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> CheckPasswordAsync(UsersEntitie user, string password)
@@ -41,9 +38,14 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
             return await _userManager.CheckPasswordAsync(user, password);
         }
 
-        public void Delete(UsersEntitie entity)
+        public async Task DeleteAsync(UsersEntitie entity)
         {
-            throw new System.NotImplementedException();
+            var result = await _userManager.DeleteAsync(entity);
+            if (result.Succeeded is false)
+            {
+                //throw new Exception(result.Errors.);
+                throw new Exception("Erro ao criar usuario");
+            }
         }
 
         public Task<IEnumerable<UsersEntitie>> GetAllAsync()
@@ -54,12 +56,13 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
         public async Task<UsersEntitie> GetByEmailAsync(string email)
         {
             return await _context.Users
-          .FirstOrDefaultAsync(u => u.Email == email);
+                                  .FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public Task<UsersEntitie> GetByIdAsync(object id)
+        public async Task<UsersEntitie> GetByIdAsync(object id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users
+                                  .FirstOrDefaultAsync(u => u.Id == Guid.Parse(id.ToString()));
         }
 
         public async Task<UsersEntitie> GetByNicknameAsync(string nickname)
@@ -76,6 +79,16 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
         public void Update(UsersEntitie entity)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task BlockUserAsync(UsersEntitie user, bool enableBlocking)
+        {
+            var result = await _userManager.SetLockoutEnabledAsync(user, enableBlocking);
+            if (result.Succeeded is false)
+            {
+                //throw new Exception(result.Errors.);
+                throw new Exception("Erro ao criar usuario");
+            }
         }
     }
 }
