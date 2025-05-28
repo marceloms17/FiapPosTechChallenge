@@ -16,7 +16,7 @@ namespace Core.PosTech8Nett.Test.Services.GameInformation
             _gameService = new GameService(_gameRepositoryMock.Object);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve retornar todos os jogos cadastrados")]
         public async Task GetAllAsync_ShouldReturnAllGames()
         {
             var games = new List<Game> { new Game { Title = "Test Game" } };
@@ -28,7 +28,7 @@ namespace Core.PosTech8Nett.Test.Services.GameInformation
             Assert.Single(result);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve retornar jogo quando ID existir")]
         public async Task GetByIdAsync_ShouldReturnGame_WhenExists()
         {
             var gameId = Guid.NewGuid();
@@ -41,7 +41,7 @@ namespace Core.PosTech8Nett.Test.Services.GameInformation
             Assert.Equal(gameId, result.Id);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve adicionar novo jogo")]
         public async Task AddAsync_ShouldAddGame()
         {
             var game = new Game { Title = "New Game" };
@@ -50,7 +50,7 @@ namespace Core.PosTech8Nett.Test.Services.GameInformation
             _gameRepositoryMock.Verify(r => r.AddAsync(game), Times.Once);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve atualizar jogo existente")]
         public void Update_ShouldUpdateGame()
         {
             var game = new Game { Title = "Update Game" };
@@ -59,19 +59,16 @@ namespace Core.PosTech8Nett.Test.Services.GameInformation
             _gameRepositoryMock.Verify(r => r.Update(game), Times.Once);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Deve remover jogo quando ID existir")]
         public async Task Delete_ShouldDeleteGame()
         {
-            // Arrange
             var gameId = Guid.NewGuid();
             var game = new Game { Id = gameId, Title = "Delete Game" };
 
             _gameRepositoryMock.Setup(r => r.GetByIdAsync(gameId)).ReturnsAsync(game);
 
-            // Act
             await _gameService.DeleteAsync(gameId);
 
-            // Assert
             _gameRepositoryMock.Verify(r => r.Delete(game), Times.Once);
         }
     }
