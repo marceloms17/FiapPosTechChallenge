@@ -71,7 +71,7 @@ http://localhost:5000/swagger
 
 ## 🤝 Contributors
 
-- Marcelo Morais dos Santos – marceloms17@gmail.com  
+- Marcelo Morais dos Santos – [LinkedIn](https://www.linkedin.com/in/marcelo-morais-61584146/) 
 - Laerte Patrocínio – [LinkedIn](https://www.linkedin.com/in/laertepatrocinio)
 
 ---
