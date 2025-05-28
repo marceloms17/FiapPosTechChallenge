@@ -18,6 +18,7 @@ namespace Core.PosTech8Nett.Api.Infra.Services.Extensions
             //Services
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IAuthenticationServices, AuthenticationServices>();
+            services.AddScoped<IGameService, GameService>();
 
             return services;
         }
