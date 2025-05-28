@@ -2,6 +2,7 @@
 using Core.PosTech8Nett.Api.Infra.DataBase.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
@@ -45,6 +46,10 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
+        }
+        public IQueryable<T> Query()
+        {
+            return _dbSet.AsQueryable();
         }
     }
 }
