@@ -6,7 +6,7 @@ using Core.PosTech8Nett.Api.Domain.Model.User.Responses;
 using Core.PosTech8Nett.Api.Domain.Validations.User;
 using Core.PosTech8Nett.Api.Infra.DataBase.Repository.Interfaces;
 using Core.PosTech8Nett.Api.Services.Interfaces;
-using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -101,11 +101,6 @@ namespace Core.PosTech8Nett.Api.Services
 
             var data = await _userRepository.GetByNicknameAsync(request.NickName);
             return _mapper.Map<UserResponse>(data);
-        }
-
-        public Task<UserResponse> UpdateAsync(CreateUserRequest request)
-        {
-            throw new NotImplementedException();
         }
     }
 }

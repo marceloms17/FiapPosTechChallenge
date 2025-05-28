@@ -64,16 +64,5 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
             var result = await _userServices.GetByEmailAsync(request);
             return Ok(result);
         }
-
-        [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [HttpPatch("Update")]
-        public async Task<IActionResult> UpdatetUser([FromBody] UpdateUserRequest request, CancellationToken cancellationToken = default)
-        {
-
-            return null;
-        }
     }
 }

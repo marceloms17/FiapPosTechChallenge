@@ -5,6 +5,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Threading;
 using Core.PosTech8Nett.Api.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Core.PosTech8Nett.Api.Controllers.V1
 {
@@ -24,6 +26,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin")]
         [HttpPatch("Block")]
         public async Task<IActionResult> BlockUser([FromBody] BlockUserRequest request, CancellationToken cancellationToken = default)
         {
@@ -35,6 +38,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
         {

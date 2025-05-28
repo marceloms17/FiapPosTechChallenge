@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,16 @@ namespace Core.PosTech8Nett.Api.CommonExtensions
             foreach (var error in listErrors)
             {
                 result.Append(string.Concat(error.ErrorMessage, " - "));
+            }
+            return result.ToString();
+        }
+
+        public static string ConvertToString(this IEnumerable<IdentityError> listErrors)
+        {
+            StringBuilder result = new StringBuilder();
+            foreach (var error in listErrors)
+            {
+                result.Append(string.Concat(error.Description, " - "));
             }
             return result.ToString();
         }

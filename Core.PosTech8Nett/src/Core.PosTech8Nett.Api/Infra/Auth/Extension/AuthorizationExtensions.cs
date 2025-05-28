@@ -1,20 +1,23 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Infra.Auth.Extension
 {
     [ExcludeFromCodeCoverage]
     public static class AuthorizationExtensions
     {
-        public static void AddAuthorizationExtension(this WebApplicationBuilder builder)
+        public static IServiceCollection AddAuthorizationExtension(this IServiceCollection services, IConfiguration configure)
         {
-            var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+            var jwtSettings = configure.GetSection("JwtSettings");
             var key = System.Text.Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]);
 
-            builder.Services.AddAuthentication(options =>
+            services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -33,9 +36,24 @@ namespace Core.PosTech8Nett.Api.Infra.Auth.Extension
                     ValidAudience = jwtSettings["Audience"],
                     IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(key)
                 };
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine($"Erro de autenticação: {context.Exception.Message}");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine("Token validado com sucesso!");
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
-            builder.Services.AddAuthorization();
+            services.AddAuthorization();
+
+            return services;
         }
     }
 }

@@ -16,6 +16,6 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository.Interfaces
         Task<UsersEntitie> GetByEmailAsync(string email);
         Task<UsersEntitie> GetByNicknameAsync(string nickname);
         Task<bool> CheckPasswordAsync(UsersEntitie user, string password);
-      
+        Task<IList<string>> GetRolesUser(UsersEntitie user);
     }
 }

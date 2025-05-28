@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,7 +53,7 @@ namespace Core.PosTech8Nett.Api.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            //var roles = await _userManager.GetRolesAsync(user);
+            var roles = await _userRepository.GetRolesUser(user);
 
             var claims = new List<Claim>
             {
@@ -61,8 +62,7 @@ namespace Core.PosTech8Nett.Api.Services
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
-            // Adicionar todas as roles como claims
-           // claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],

@@ -1,4 +1,5 @@
-﻿using Core.PosTech8Nett.Api.Domain.Entities.Identity;
+﻿using Core.PosTech8Nett.Api.CommonExtensions;
+using Core.PosTech8Nett.Api.Domain.Entities.Identity;
 using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context;
 using Core.PosTech8Nett.Api.Infra.DataBase.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -25,12 +26,10 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
             var result = await _userManager.CreateAsync(entity, password);
             if (result.Succeeded is false)
             {
-                //throw new Exception(result.Errors.);
-                throw new Exception("Erro ao criar usuario");
+                var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                throw new Exception(messages);
             }
-
-            //  await _userManager.AddToRoleAsync(entity, "user");
-
+            await _userManager.AddToRoleAsync(entity, "Usuario");
         }
 
         public async Task<bool> CheckPasswordAsync(UsersEntitie user, string password)
@@ -43,8 +42,8 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
             var result = await _userManager.DeleteAsync(entity);
             if (result.Succeeded is false)
             {
-                //throw new Exception(result.Errors.);
-                throw new Exception("Erro ao criar usuario");
+                var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                throw new Exception(messages);
             }
         }
 
@@ -71,14 +70,10 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
                 .FirstOrDefaultAsync(u => u.NickName == nickname);
         }
 
-        public Task SaveChangesAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Update(UsersEntitie entity)
         {
-            throw new System.NotImplementedException();
+            _context.Update(entity);
+            _context.SaveChangesAsync();
         }
 
         public async Task BlockUserAsync(UsersEntitie user, bool enableBlocking)
@@ -86,9 +81,14 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
             var result = await _userManager.SetLockoutEnabledAsync(user, enableBlocking);
             if (result.Succeeded is false)
             {
-                //throw new Exception(result.Errors.);
-                throw new Exception("Erro ao criar usuario");
+                var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                throw new Exception(messages);
             }
+        }
+
+        public async Task<IList<string>> GetRolesUser(UsersEntitie user)
+        {
+            return await _userManager.GetRolesAsync(user);
         }
     }
 }

@@ -4,7 +4,7 @@ using Core.PosTech8Nett.Api.Domain.Model.User.Requests;
 using Core.PosTech8Nett.Api.Domain.Model.User.Responses;
 using System;
 
-namespace Core.PosTech8Nett.Api.Mappers
+namespace Core.PosTech8Nett.Api.Domain.Mappers
 {
     public class UsersEntitieMapperProfile : Profile
     {
