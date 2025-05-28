@@ -16,11 +16,16 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 - Clean Architecture (separação em camadas)
 - Docker (planejado)
 - GitHub Projects + Kanban
+- JWT Authentication
+- AutoMapper
+- xUnit (Testes Unitários)
+
 ---
 
-## Documentos
-- EventStorming:(https://miro.com/app/board/uXjVI-mHcaQ=/?share_link_id=658453906053)
+## 📄 Documentos
+- EventStorming: https://miro.com/app/board/uXjVI-mHcaQ=/?share_link_id=658453906053
 - Domain Storytelling: https://egon.io/app/
+
 ---
 
 ## 🧱 Estrutura do Projeto
@@ -29,8 +34,6 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 FiapPosTechChallenge/
 ├── src/
 │   ├── Fiap.Games.Api/
-│   │   ├── Controllers/
-│   │   └── Program.cs / Swagger config
 │   ├── Fiap.Games.Domain/
 │   ├── Fiap.Games.Infrastructure/
 │   └── Fiap.Games.Tests/
@@ -39,13 +42,15 @@ FiapPosTechChallenge/
 
 ---
 
-## 📌 Funcionalidades Esperadas (conforme desafio)
+## 📌 Funcionalidades Implementadas
 
 - Cadastro e listagem de usuários
 - Cadastro de jogos educativos
 - Atribuição de jogos comprados aos usuários
 - CRUD de administradores e jogos
-- Endpoint para biblioteca de jogos adquiridos por usuário
+- Biblioteca de jogos adquiridos por usuário
+- Autenticação de usuários com JWT
+- Cobertura de testes unitários com xUnit
 
 ---
 
@@ -73,9 +78,29 @@ http://localhost:5000/swagger
 
 ---
 
+## 🧪 Como cadastrar usuários
+
+1. Endpoint:
+```
+POST /api/v1/User/Create
+```
+
+2. Payload de exemplo:
+```json
+{
+  "email": "usuario@teste.com",
+  "password": "SenhaForte123!",
+  "nickname": "apelidoDoUsuario",
+  "city": "São Paulo",
+  "state": "SP"
+}
+```
+
+---
+
 ## 🤝 Contribuidores
 
-- Marcelo Morais dos Santos – marceloms17@gmail.com  
+- Marcelo Morais dos Santos – [LinkedIn](https://www.linkedin.com/in/marcelo-morais-61584146/)
 - Laerte Patrocínio – [LinkedIn](https://www.linkedin.com/in/laerte-patrocinio-19937295/)
 
 ---
