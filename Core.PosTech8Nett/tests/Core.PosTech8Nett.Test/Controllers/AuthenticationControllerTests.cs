@@ -1,88 +1,75 @@
-﻿using Xunit;
-using Moq;
+﻿using Core.PosTech8Nett.Api.Controllers.V1;
+using Core.PosTech8Nett.Api.Domain.Model.Authenticator;
+using Core.PosTech8Nett.Api.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Core.PosTech8Nett.Api.Controllers.V1;
-using Core.PosTech8Nett.Api.Domain.Entities.Identity;
+using Moq;
+using Xunit;
 
 namespace Core.PosTech8Nett.Tests.Controllers
 {
     public class AuthenticationControllerTests
     {
-        private readonly Mock<UserManager<UsersEntitie>> _userManagerMock;
-        private readonly Mock<IConfiguration> _configMock;
+        private readonly Mock<IUserServices> _userServicesMock;
+        private readonly Mock<IAuthenticationServices> _authServicesMock;
         private readonly AuthenticationController _controller;
 
         public AuthenticationControllerTests()
         {
-            var store = new Mock<IUserStore<UsersEntitie>>();
-            _userManagerMock = new Mock<UserManager<UsersEntitie>>(store.Object, null, null, null, null, null, null, null, null);
-            _configMock = new Mock<IConfiguration>();
-
-            // Setup JWT settings
-            _configMock.Setup(x => x.GetSection("JwtSettings")["SecretKey"]).Returns("supersecretkey123456789012345678901234567890");
-            _configMock.Setup(x => x.GetSection("JwtSettings")["Issuer"]).Returns("https://PosTech8NettApp.com");
-            _configMock.Setup(x => x.GetSection("JwtSettings")["Audience"]).Returns("https://Api.PosTech8NettApp.com");
-
-            _controller = new AuthenticationController(_userManagerMock.Object, _configMock.Object);
+            _userServicesMock = new Mock<IUserServices>();
+            _authServicesMock = new Mock<IAuthenticationServices>();
+            _controller = new AuthenticationController(_userServicesMock.Object, _authServicesMock.Object);
         }
 
         [Fact]
         public async Task DadoUsuarioValido_QuandoLogin_EntaoRetornaToken()
         {
-            // Given
-            var user = new UsersEntitie { Id = System.Guid.NewGuid(), Email = "admin@admin.com", UserName = "admin@admin.com" };
-            _userManagerMock.Setup(x => x.FindByEmailAsync(user.Email)).ReturnsAsync(user);
-            _userManagerMock.Setup(x => x.CheckPasswordAsync(user, "Admin@123")).ReturnsAsync(true);
-            _userManagerMock.Setup(x => x.GetRolesAsync(user)).ReturnsAsync(new List<string> { "Admin" });
+            // Arrange
+            var loginRequest = new LoginRequest { Email = "admin@admin.com", Password = "Admin@123" };
+            var expectedToken = "fake-jwt-token";
 
-            var loginModel = new LoginModel { Email = user.Email, Password = "Admin@123" };
+            _authServicesMock
+                .Setup(x => x.LoginAsync(It.IsAny<LoginRequest>()))
+                .ReturnsAsync(expectedToken);
 
-            // When
-            var result = await _controller.Login(loginModel);
+            // Act
+            var result = await _controller.Login(loginRequest);
 
-            // Then
+            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-
-            var tokenProperty = okResult.Value?.GetType().GetProperty("token");
-            var tokenValue = tokenProperty?.GetValue(okResult.Value, null)?.ToString();
-
-            Assert.False(string.IsNullOrWhiteSpace(tokenValue));
+            Assert.Equal(expectedToken, okResult.Value);
         }
-
 
         [Fact]
         public async Task DadoEmailInexistente_QuandoLogin_EntaoRetornaUnauthorized()
         {
-            // Given
-            _userManagerMock.Setup(x => x.FindByEmailAsync("notfound@email.com")).ReturnsAsync((UsersEntitie)null);
+            // Arrange
+            var loginRequest = new LoginRequest { Email = "notfound@email.com", Password = "qualquer" };
 
-            var loginModel = new LoginModel { Email = "notfound@email.com", Password = "qualquer" };
+            _authServicesMock
+                .Setup(x => x.LoginAsync(It.IsAny<LoginRequest>()))
+                .ReturnsAsync((string)null);
 
-            // When
-            var result = await _controller.Login(loginModel);
+            // Act
+            var result = await _controller.Login(loginRequest);
 
-            // Then
+            // Assert
             Assert.IsType<UnauthorizedResult>(result);
         }
 
         [Fact]
         public async Task DadoSenhaIncorreta_QuandoLogin_EntaoRetornaUnauthorized()
         {
-            // Given
-            var user = new UsersEntitie { Id = System.Guid.NewGuid(), Email = "user@test.com" };
-            _userManagerMock.Setup(x => x.FindByEmailAsync(user.Email)).ReturnsAsync(user);
-            _userManagerMock.Setup(x => x.CheckPasswordAsync(user, "errada")).ReturnsAsync(false);
+            // Arrange
+            var loginRequest = new LoginRequest { Email = "user@test.com", Password = "wrongpassword" };
 
-            var loginModel = new LoginModel { Email = user.Email, Password = "errada" };
+            _authServicesMock
+                .Setup(x => x.LoginAsync(It.IsAny<LoginRequest>()))
+                .ReturnsAsync((string)null);
 
-            // When
-            var result = await _controller.Login(loginModel);
+            // Act
+            var result = await _controller.Login(loginRequest);
 
-            // Then
+            // Assert
             Assert.IsType<UnauthorizedResult>(result);
         }
     }
