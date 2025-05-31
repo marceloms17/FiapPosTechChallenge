@@ -13,7 +13,6 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 - Entity Framework Core
 - Swagger / Swashbuckle
 - SQL Server (Migrations)
-- Clean Architecture (separação em camadas)
 - Docker (planejado)
 - GitHub Projects + Kanban
 - JWT Authentication
@@ -108,18 +107,19 @@ Para executá-los:
 dotnet test Core.PosTech8Nett.Test
 ```
 
-```
-Testes BDD com SpecFlow
-```
+---
+
+## Testes BDD com SpecFlow
+
 
 Os testes de comportamento estão localizados em Core.PosTech8Nett.BDD.
 
 Executam cenários como:
-Criaçäo de usuário.
-Login
-Listagem de usuários
-Criaçäo de games
-Listagem de games
+- Criaçäo de usuário.
+- Login
+- Listagem de usuários
+- Criaçäo de games
+- Listagem de games
 
 
 ## 🤝 Contribuidores
