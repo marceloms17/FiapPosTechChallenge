@@ -23,8 +23,7 @@ Este projeto foi desenvolvido como parte do Tech Challenge da pós-graduação e
 ---
 
 ## 📄 Documentos
-- EventStorming: https://miro.com/app/board/uXjVI-mHcaQ=/?share_link_id=658453906053
-- Domain Storytelling: https://egon.io/app/
+- EventStorming e Domain Storytelling(print): https://miro.com/app/board/uXjVI-mHcaQ=/?share_link_id=658453906053
 
 ---
 
@@ -48,7 +47,6 @@ FiapPosTechChallenge/
 - Cadastro de jogos educativos
 - Atribuição de jogos comprados aos usuários
 - CRUD de administradores e jogos
-- Biblioteca de jogos adquiridos por usuário
 - Autenticação de usuários com JWT
 - Cobertura de testes unitários com xUnit
 
@@ -75,7 +73,7 @@ dotnet run --project src/Fiap.Games.Api
 ```
 http://localhost:5000/swagger
 ```
-O migration ira rodar automaticamente, criando o usuario admin 
+O migration ira rodar automaticamente, cria as roles e o usuario admin 
 ```
 email: admin@fiap.com
 senha: Fiap2025@
@@ -91,15 +89,38 @@ POST /api/v1/User/Create
 2. Payload de exemplo:
 ```json
 {
+  "password": "SenhaForte123",
   "email": "usuario@teste.com",
-  "password": "SenhaForte123!",
-  "nickname": "apelidoDoUsuario",
-  "city": "São Paulo",
-  "state": "SP"
+  "firstName": "Fiap",
+  "lastName": "pós",
+  "birthdate": "2025-05-31T17:17:11.672Z",
+  "nickName": "apelidoDoUsuario"
 }
 ```
-
+ Testes automatizados
 ---
+
+Testes Unitários (xUnit)
+Os testes estão localizados em Core.PosTech8Nett.Test.
+
+Para executá-los:
+```bash
+dotnet test Core.PosTech8Nett.Test
+```
+
+```
+Testes BDD com SpecFlow
+```
+
+Os testes de comportamento estão localizados em Core.PosTech8Nett.BDD.
+
+Executam cenários como:
+Criaçäo de usuário.
+Login
+Listagem de usuários
+Criaçäo de games
+Listagem de games
+
 
 ## 🤝 Contribuidores
 
