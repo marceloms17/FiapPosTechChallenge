@@ -75,6 +75,9 @@ dotnet run --project src/Fiap.Games.Api
 ```
 http://localhost:5000/swagger
 ```
+O migration ira rodar automaticamente, criando o usuario admin 
+User: admin@admin.teste
+Pass: Admin@123
 
 ---
 
