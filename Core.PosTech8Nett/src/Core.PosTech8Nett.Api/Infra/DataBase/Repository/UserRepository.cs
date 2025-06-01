@@ -29,12 +29,36 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
                 var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
                 throw new Exception(messages);
             }
-            await _userManager.AddToRoleAsync(entity, "Usuario");
+
+            var role = await _context.Roles.FirstOrDefaultAsync(role => role.Name.Equals("Usuario"));
+
+            _context.UserRoles.Add(new UserRoles()
+            {
+                UserId = entity.Id,
+                RoleId = role.Id
+            });
+
+            _context.SaveChanges();
         }
 
         public async Task<bool> CheckPasswordAsync(UsersEntitie user, string password)
         {
             return await _userManager.CheckPasswordAsync(user, password);
+        }
+
+        public async Task AccessFailedAsync(UsersEntitie user)
+        {
+            var result = await _userManager.AccessFailedAsync(user);
+            if (result.Succeeded is false)
+            {
+                var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                throw new Exception(messages);
+            }
+        }
+
+        public async Task<bool> CheckLockedOutAsync(UsersEntitie user)
+        {
+            return await _userManager.IsLockedOutAsync(user);
         }
 
         public async Task DeleteAsync(UsersEntitie entity)
@@ -78,12 +102,24 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
 
         public async Task BlockUserAsync(UsersEntitie user, bool enableBlocking)
         {
-            var result = await _userManager.SetLockoutEnabledAsync(user, enableBlocking);
-            if (result.Succeeded is false)
+            if (enableBlocking)
             {
-                var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
-                throw new Exception(messages);
+                var result = await _userManager.SetLockoutEndDateAsync(user, DateTime.Now.AddMinutes(10));
+                if (result.Succeeded is false)
+                {
+                    var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                    throw new Exception(messages);
+                }
             }
+            else
+            {
+                var result = await _userManager.SetLockoutEndDateAsync(user, DateTime.Now);
+                if (result.Succeeded is false)
+                {
+                    var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
+                    throw new Exception(messages);
+                }
+            }        
         }
 
         public async Task<IList<string>> GetRolesUser(UsersEntitie user)

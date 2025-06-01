@@ -2,6 +2,7 @@
 using AutoMapper;
 using Core.PosTech8Nett.Api.Domain.Entities.GameInformation;
 using Core.PosTech8Nett.Api.Domain.Model.Game;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin,Usuario")]
         [HttpGet("list")]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default)
         {
@@ -40,6 +42,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin,Usuario")]
         [HttpGet("getbyid")]
         public async Task<IActionResult> GetById([FromQuery] Guid id, CancellationToken cancellationToken = default)
         {
@@ -52,6 +55,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
 
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] GameRequest request, CancellationToken cancellationToken = default)
         {
@@ -65,6 +69,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin")]
         [HttpPut("update")]
         public async Task<IActionResult> Update([FromQuery] Guid id, [FromBody] GameRequest request, CancellationToken cancellationToken = default)
         {
@@ -78,6 +83,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromQuery] Guid id, CancellationToken cancellationToken = default)
         {

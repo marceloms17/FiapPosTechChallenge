@@ -37,12 +37,18 @@ namespace Core.PosTech8Nett.Api.Services
             }
 
             var userData = await _userRepository.GetByEmailAsync(request.Email);
+            if (userData is null)
+                throw new Exception("Usuário não encontrado"); 
 
-            if (userData != null && await _userRepository.CheckPasswordAsync(userData, request.Password))
+            var isLockedOut = await _userRepository.CheckLockedOutAsync(userData);
+            var isValidPassword = await _userRepository.CheckPasswordAsync(userData, request.Password);
+
+            if (isValidPassword && isLockedOut is false)
             {
                 var token = await GenerateJwtToken(userData);
                 return token;
             }
+            await _userRepository.AccessFailedAsync(userData);
 
             return null;
         }

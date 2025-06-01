@@ -21,13 +21,11 @@ namespace Core.PosTech8Nett.Api.Domain.Mappers
                 .ForMember(destination => destination.NickName, options => options.MapFrom(source => source.NickName))
                 .ForMember(destination => destination.CreatedAt, options => options.MapFrom(source => source.CreatedAt))
                 .ForMember(destination => destination.CreatedAt, options => options.MapFrom(source => source.CreatedAt))
-                .ForMember(destination => destination.UpdateAt, options => options.MapFrom(source => source.UpdateAt))
-                .ForMember(destination => destination.Address, options => options.MapFrom(source => source.Address))
-                .ForMember(destination => destination.Contact, options => options.MapFrom(source => source.Contact));
+                .ForMember(destination => destination.UpdateAt, options => options.MapFrom(source => source.UpdateAt));
 
 
             CreateMap<CreateUserRequest, UsersEntitie>()
-                    .ForMember(destination => destination.UserName, options => options.MapFrom(source => source.UserName))
+                    .ForMember(destination => destination.UserName, options => options.MapFrom(source => source.Email))
                     .ForMember(destination => destination.Email, options => options.MapFrom(source => source.Email))
                     .ForMember(destination => destination.FirstName, options => options.MapFrom(source => source.FirstName))
                     .ForMember(destination => destination.LastName, options => options.MapFrom(source => source.LastName))

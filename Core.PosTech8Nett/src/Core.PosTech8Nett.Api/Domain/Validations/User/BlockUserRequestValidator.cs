@@ -11,11 +11,6 @@ namespace Core.PosTech8Nett.Api.Domain.Validations.User
                 .NotEmpty()
                 .NotNull()
                 .WithMessage("O campo Id deve ser informado.");
-
-            RuleFor(x => x.EnableBlocking)
-                .NotEmpty()
-                .NotNull()
-                .WithMessage("O campo EnableBlocking deve ser informado.");
         }
     }
 }

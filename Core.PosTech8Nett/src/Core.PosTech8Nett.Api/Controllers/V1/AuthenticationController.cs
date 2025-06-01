@@ -1,20 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System;
-using Asp.Versioning;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using System.Linq;
-using System.Collections.Generic;
-using Core.PosTech8Nett.Api.Domain.Entities.Identity;
+﻿using Asp.Versioning;
+using Core.PosTech8Nett.Api.Domain.Model.Authenticator;
 using Core.PosTech8Nett.Api.Domain.Model.User.Requests;
 using Core.PosTech8Nett.Api.Services.Interfaces;
-using Core.PosTech8Nett.Api.Services;
-using Core.PosTech8Nett.Api.Domain.Model.Authenticator;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Core.PosTech8Nett.Api.Controllers.V1
 {
@@ -32,7 +21,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
             _authenticationServices = authenticationServices;
         }
 
-        [HttpPost("register")]
+        [HttpPost("create")]
         public async Task<IActionResult> Register([FromBody] CreateUserRequest request)
         {
             await _userServices.CreateAsync(request);
@@ -45,14 +34,10 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         {
             var result = await _authenticationServices.LoginAsync(request);
 
-            if(result is not null)
+            if (result is not null)
                 return Ok(result);
 
             return Unauthorized();
         }
-
-      
     }
-
-
 }

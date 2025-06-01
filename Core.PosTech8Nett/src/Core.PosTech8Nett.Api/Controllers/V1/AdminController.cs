@@ -27,7 +27,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Authorize(Roles = "Admin")]
-        [HttpPatch("Block")]
+        [HttpPatch("User/Block")]
         public async Task<IActionResult> BlockUser([FromBody] BlockUserRequest request, CancellationToken cancellationToken = default)
         {
             await _userServices.BlockUserAsync(request);
@@ -39,7 +39,7 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
         [ProducesResponseType((int)HttpStatusCode.Forbidden)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-        [HttpDelete("Delete")]
+        [HttpDelete("User/Delete")]
         public async Task<IActionResult> DeleteUser([FromBody] DeleteUserRequest request, CancellationToken cancellationToken = default)
         {
             await _userServices.DeleteAsync(request);

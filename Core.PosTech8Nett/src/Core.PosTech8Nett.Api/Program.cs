@@ -3,7 +3,6 @@ using Core.PosTech8Nett.Api.Domain.Mappers;
 using Core.PosTech8Nett.Api.Infra.Auth.Extension;
 using Core.PosTech8Nett.Api.Infra.Auth.Middleware;
 using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Context;
-using Core.PosTech8Nett.Api.Infra.DataBase.EntityFramework.Seed;
 using Core.PosTech8Nett.Api.Infra.Identity.Extension;
 using Core.PosTech8Nett.Api.Infra.Logs;
 using Core.PosTech8Nett.Api.Infra.Logs.Extension;
@@ -21,7 +20,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddSerilogConfiguration();
 
-
 builder.Services.AddMvcCore(options => options.AddLogRequestFilter());
 builder.Services.AddVersioning();
 builder.Services.AddSwaggerDocumentation();
@@ -36,8 +34,6 @@ var app = builder.Build();
 
 app.ExecuteMigrations();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
-
-
 
 app.UseAuthentication();                        // 1º: popula HttpContext.User
 app.UseMiddleware<RoleAuthorizationMiddleware>(); // 2º: seu middleware

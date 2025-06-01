@@ -50,12 +50,11 @@ namespace Core.PosTech8Nett.Test.Services
                 .Setup(x => x.GetByEmailAsync(request.Email))
                 .ReturnsAsync((UsersEntitie)null);
 
-            // Act
-            var resultado = await _service.LoginAsync(request);
-
             // Assert
-            Assert.Null(resultado);
+            var excecao = await Assert.ThrowsAsync<Exception>(() => _service.LoginAsync(request));
+            Assert.Contains("Usuário não encontrado", excecao.Message);
         }
+
         [Fact(DisplayName = "Deve retornar null quando a senha estiver incorreta")]
         public async Task DeveRetornarNull_QuandoSenhaEstiverIncorreta()
         {

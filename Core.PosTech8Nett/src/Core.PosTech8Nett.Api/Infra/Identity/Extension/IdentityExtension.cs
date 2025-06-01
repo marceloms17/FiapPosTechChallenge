@@ -24,7 +24,9 @@ namespace Core.PosTech8Nett.Api.Infra.Identity.Extension
 
                 //User
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.SignIn.RequireConfirmedEmail = true;
                 options.User.RequireUniqueEmail = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
             });
 
             return services;

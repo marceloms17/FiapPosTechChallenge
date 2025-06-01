@@ -15,7 +15,5 @@ namespace Core.PosTech8Nett.Api.Domain.Model.User.Responses
         public string NickName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public Address Address { get; set; }
-        public Contact Contact { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace Core.PosTech8Nett.Api.Domain.Model.Game
         public string IndicatedAgeRating { get; set; } = null!;
         public decimal HourPlayed { get; set; }
         public string ImageUrl { get; set; } = null!;
-        public List<string> Genres { get; set; } = new();
+        //public List<string> Genres { get; set; } = new();
     }
 }

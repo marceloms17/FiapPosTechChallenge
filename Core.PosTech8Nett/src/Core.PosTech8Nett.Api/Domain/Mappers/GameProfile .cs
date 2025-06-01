@@ -3,15 +3,13 @@ using Core.PosTech8Nett.Api.Domain.Entities.GameInformation;
 using Core.PosTech8Nett.Api.Domain.Model.Game;
 using System.Linq;
 
-namespace Core.PosTech8Nett.Api.Mappers
+namespace Core.PosTech8Nett.Api.Domain.Mappers
 {
     public class GameProfile : Profile
     {
         public GameProfile()
         {
-            CreateMap<Game, GameResponse>()
-                .ForMember(dest => dest.Genres, opt => opt.MapFrom(src =>
-                    src.Genres.Select(g => g.GenreType.Description)));
+            CreateMap<Game, GameResponse>();
 
             CreateMap<GameRequest, Game>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
