@@ -63,7 +63,7 @@ git clone https://github.com/seu-usuario/FiapPosTechChallenge.git
 dotnet restore
 ```
 
-3. Rodar aplicação:
+3. Rodar aplicação: OBS aplicaçao rodando no Docker
 ```bash
 dotnet run --project src/Fiap.Games.Api
 ```
