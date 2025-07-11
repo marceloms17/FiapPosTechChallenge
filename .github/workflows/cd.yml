@@ -19,16 +19,16 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
+        run: dotnet restore Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
 
       - name: Build project
-        run: dotnet build src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
+        run: dotnet build Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
       - name: Publish project
-        run: dotnet publish src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj -c Release -o ${{ github.workspace }}/publish
+        run: dotnet publish Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj -c Release -o ${{ github.workspace }}/publish
 
       - name: Apply EF Core migrations
-        run: dotnet ef database update --project src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
+        run: dotnet ef database update --project Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION_STRING }}
 
