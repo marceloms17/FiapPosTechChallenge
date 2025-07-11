@@ -1,0 +1,50 @@
+name: CD - Deploy to Azure App Service
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-publish-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
+
+      - name: Build project
+        run: dotnet build src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
+
+      - name: Publish project
+        run: dotnet publish src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj -c Release -o ${{ github.workspace }}/publish
+
+      - name: Apply EF Core migrations
+        run: dotnet ef database update --project src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
+        env:
+          ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION_STRING }}
+
+      - name: Deploy to Azure App Service
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'Fiap'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ github.workspace }}/publish
+
+      # - name: Notify Slack after deploy (descomente e configure o webhook)
+      #   uses: slackapi/slack-github-action@v1.24.0
+      #   with:
+      #     payload: |
+      #       {
+      #         "text": "🚀 Deploy concluído no Azure App Service: Fiap!"
+      #       }
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
