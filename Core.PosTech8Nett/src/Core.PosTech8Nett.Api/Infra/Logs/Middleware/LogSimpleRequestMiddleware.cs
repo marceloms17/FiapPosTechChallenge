@@ -13,7 +13,7 @@ namespace Core.PosTech8Nett.Api.Infra.Logs.Middleware
         const string MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
 
         static readonly ILogger Log = Serilog.Log.ForContext<LogSimpleRequestMiddleware>();
-      
+
 
         readonly RequestDelegate _next;
 

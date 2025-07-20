@@ -3,7 +3,7 @@ using System;
 
 namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
 {
-    public class UserClaims: IdentityUserClaim<Guid>
+    public class UserClaims : IdentityUserClaim<Guid>
     {
         public int Id { get; set; }
 

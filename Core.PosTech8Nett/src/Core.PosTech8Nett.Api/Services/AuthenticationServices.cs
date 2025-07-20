@@ -38,7 +38,7 @@ namespace Core.PosTech8Nett.Api.Services
 
             var userData = await _userRepository.GetByEmailAsync(request.Email);
             if (userData is null)
-                throw new Exception("Usuário não encontrado"); 
+                throw new Exception("Usuário não encontrado");
 
             var isLockedOut = await _userRepository.CheckLockedOutAsync(userData);
             var isValidPassword = await _userRepository.CheckPasswordAsync(userData, request.Password);

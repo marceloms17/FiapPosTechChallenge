@@ -57,6 +57,6 @@ namespace Core.PosTech8Nett.Api.Controllers.V1
             var result = await _userServices.GetByIdAsync(request);
             return Ok(result);
         }
-       
+
     }
 }

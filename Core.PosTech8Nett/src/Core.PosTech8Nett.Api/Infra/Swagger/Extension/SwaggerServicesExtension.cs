@@ -18,7 +18,8 @@ namespace Core.PosTech8Nett.Api.Infra.Swagger.Extension
         /// </summary>
         public static IServiceCollection AddSwaggerDocumentation(this IServiceCollection services)
         {
-            services.AddSwaggerGen(options =>            {
+            services.AddSwaggerGen(options =>
+            {
 
                 var _provider = services.BuildServiceProvider().GetRequiredService<IApiVersionDescriptionProvider>();
 
@@ -28,7 +29,7 @@ namespace Core.PosTech8Nett.Api.Infra.Swagger.Extension
                     {
                         Title = $"API - {description.GroupName.ToUpper()}",
                         Version = description.ApiVersion.ToString(),
-                        Description = "Documentação gerada automaticamente com Swagger e ApiVersioning."                       
+                        Description = "Documentação gerada automaticamente com Swagger e ApiVersioning."
                     });
                 }
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

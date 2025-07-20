@@ -3,7 +3,7 @@ using System;
 
 namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
 {
-    public class UserToken: IdentityUserToken<Guid>
+    public class UserToken : IdentityUserToken<Guid>
     {
     }
 }

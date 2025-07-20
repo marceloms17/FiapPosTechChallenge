@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
 {
-    public class UsersEntitie: IdentityUser<Guid>
+    public class UsersEntitie : IdentityUser<Guid>
     {
         public UsersEntitie()
         {

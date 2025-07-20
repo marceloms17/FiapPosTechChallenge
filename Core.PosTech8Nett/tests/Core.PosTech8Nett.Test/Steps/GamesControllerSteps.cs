@@ -65,7 +65,7 @@ namespace Core.PosTech8Nett.Test.Steps
         [When(@"o usuário requisita o jogo por ID")]
         public async Task QuandoUsuarioBuscaPorId()
         {
-            _resultado = await _controller.GetById(_gameId); 
+            _resultado = await _controller.GetById(_gameId);
         }
 
         [Then(@"o sistema deve retornar NotFound")]

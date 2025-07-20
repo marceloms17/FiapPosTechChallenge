@@ -3,7 +3,7 @@ using System;
 
 namespace Core.PosTech8Nett.Api.Domain.Entities.Identity
 {
-    public class UserLogins: IdentityUserLogin<Guid>
+    public class UserLogins : IdentityUserLogin<Guid>
     {
         public string LoginProvider { get; set; }
 

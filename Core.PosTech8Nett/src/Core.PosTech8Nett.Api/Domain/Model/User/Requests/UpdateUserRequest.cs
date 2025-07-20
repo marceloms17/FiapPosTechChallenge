@@ -10,6 +10,6 @@ namespace Core.PosTech8Nett.Api.Domain.Model.User.Requests
         public int Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string NickName { get; set; } 
+        public string NickName { get; set; }
     }
 }

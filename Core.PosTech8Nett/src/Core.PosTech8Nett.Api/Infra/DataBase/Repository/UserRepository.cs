@@ -119,7 +119,7 @@ namespace Core.PosTech8Nett.Api.Infra.DataBase.Repository
                     var messages = string.Concat("Message is invalid, validation errors: ", result.Errors.ConvertToString());
                     throw new Exception(messages);
                 }
-            }        
+            }
         }
 
         public async Task<IList<string>> GetRolesUser(UsersEntitie user)

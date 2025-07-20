@@ -34,7 +34,7 @@ namespace Core.PosTech8Nett.Api.Infra.Logs
                     {
                         context.Response.OnStarting(() =>
                         {
-                            context.Response.Headers.Add(_options.Header, correlationId);
+                            context.Response.Headers.Append(_options.Header, correlationId);
                             return Task.CompletedTask;
                         });
                     }
@@ -58,7 +58,7 @@ namespace Core.PosTech8Nett.Api.Infra.Logs
                 return false;
             }
 
-            context.Request.Headers.Add(_options.Header, correlationId);
+            context.Request.Headers.Append(_options.Header, correlationId);
 
             return true;
         }

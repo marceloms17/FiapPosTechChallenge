@@ -22,7 +22,7 @@ namespace Core.PosTech8Nett.Api.Infra.Logs.Extension
         public static MvcOptions AddLogRequestFilter(this MvcOptions op)
         {
             op.Filters.Add<LogRequestActionFilter>();
-            
+
             return op;
         }
     }

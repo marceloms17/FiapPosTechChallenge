@@ -24,7 +24,7 @@ namespace Core.PosTech8Nett.Api.Infra.Auth.Extension
             })
             .AddJwtBearer(options =>
             {
-                options.RequireHttpsMetadata = false; 
+                options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
                 {
