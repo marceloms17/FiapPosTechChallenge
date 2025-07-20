@@ -10,29 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Clonar repositório
         uses: actions/checkout@v4
 
-      - name: Setup .NET 8
+      - name: Instalar .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
+      - name: Restaurar pacotes
         run: dotnet restore Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
 
-      - name: Build project
+      - name: Compilar projeto
         run: dotnet build Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
-      - name: Publish project
+      - name: Publicar projeto
         run: dotnet publish Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj -c Release -o ${{ github.workspace }}/publish
 
-      - name: Apply EF Core migrations
+      - name: Aplicar scripts de migração
         run: dotnet ef database update --project Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.DEFAULT_CONNECTION_STRING }}
 
-      - name: Deploy to Azure App Service
+      - name: Implantar aplicativo no azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Fiap'
