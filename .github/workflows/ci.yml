@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
+        run: dotnet restore Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
 
       - name: Lint check with dotnet format
         run: dotnet format --verify-no-changes --severity warn --verbosity diag
 
       - name: Build solution
-        run: dotnet build src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
+        run: dotnet build Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
       - name: Run tests with code coverage
         run: |
