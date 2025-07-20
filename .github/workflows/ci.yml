@@ -7,40 +7,47 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build-test-lint:
+  build-and-test:
+    name: Build, Format Check, Test, and Coverage
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Clonar repositório
         uses: actions/checkout@v4
 
-      - name: Setup .NET 8
+      - name: Instalar .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
+      - name: Restaurar pacotes
         run: dotnet restore Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
 
-      - name: Lint check with dotnet format
+      - name: Verificar formatação do código
         run: dotnet format Core.PosTech8Nett/Core.PosTech8Nett.sln --verify-no-changes --severity warn --verbosity diag
 
-      - name: Build solution
+      - name: Compilar projeto
         run: dotnet build Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
-      - name: Run tests with code coverage
-        run: |
-          dotnet test Core.PosTech8Nett/tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
-            --no-build --configuration Release \
-            --collect:"XPlat Code Coverage" \
-            --results-directory ./TestResults
+      - name: Executar testes com cobertura
+        run: dotnet test Core.PosTech8Nett/tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
+          --configuration Release \
+          --no-build \
+          --collect:"XPlat Code Coverage" \
+          --results-directory ./TestResults
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Publicar cobertura com Coverlet (opcional)
+        uses: danielpalme/ReportGenerator-GitHub-Action@5.3.0
         with:
-          files: ./TestResults/**/coverage.cobertura.xml
-          fail_ci_if_error: false
-          token: ${{ secrets.CODECOV_TOKEN }}
+          reports: './TestResults/**/coverage.cobertura.xml'
+          targetdir: './CoverageReport'
+          reporttypes: 'HtmlInline;Cobertura'
+
+      - name: Upload de cobertura (para inspeção)
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-de-codigo
+          path: ./CoverageReport
 
       # - name: Notify Slack (descomente e configure o webhook)
       #   uses: slackapi/slack-github-action@v1.24.0
