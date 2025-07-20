@@ -1,4 +1,4 @@
-name: CI - Compilar , Testar, Cobertura e Formatação
+name: CI - Compile, Test, Coverage and Format
 
 on:
   pull_request:
