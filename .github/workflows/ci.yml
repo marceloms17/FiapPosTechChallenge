@@ -1,4 +1,4 @@
-name: CI - Build, Test, Coverage & Lint
+name: CI - Compilar , Testar, Cobertura e Formatação
 
 on:
   pull_request:
@@ -30,11 +30,12 @@ jobs:
         run: dotnet build Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
       - name: Executar testes com cobertura
-        run: dotnet test Core.PosTech8Nett/tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
-          --configuration Release \
-          --no-build \
-          --collect:"XPlat Code Coverage" \
-          --results-directory ./TestResults
+        run: |
+          dotnet test Core.PosTech8Nett/tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
+            --configuration Release \
+            --no-build \
+            --collect:"XPlat Code Coverage" \
+            --results-directory ./TestResults
 
       - name: Publicar cobertura com Coverlet (opcional)
         uses: danielpalme/ReportGenerator-GitHub-Action@5.3.0
