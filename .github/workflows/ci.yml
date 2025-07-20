@@ -23,14 +23,14 @@ jobs:
         run: dotnet restore Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
 
       - name: Lint check with dotnet format
-        run: dotnet format --verify-no-changes --severity warn --verbosity diag
+        run: dotnet format Core.PosTech8Nett/Core.PosTech8Nett.sln --verify-no-changes --severity warn --verbosity diag
 
       - name: Build solution
         run: dotnet build Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj --configuration Release --no-restore
 
       - name: Run tests with code coverage
         run: |
-          dotnet test tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
+          dotnet test Core.PosTech8Nett/tests/Core.PosTech8Nett.Test/Core.PosTech8Nett.Test.csproj \
             --no-build --configuration Release \
             --collect:"XPlat Code Coverage" \
             --results-directory ./TestResults
