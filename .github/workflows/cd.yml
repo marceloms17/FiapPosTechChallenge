@@ -36,7 +36,7 @@ jobs:
       - name: Aplicar scripts de migração
         run: dotnet ef database update --project Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
         env:
-          ConnectionStrings__DefaultConnection: Server=tcp:sqlserverpostech.database.windows.net,1433;Initial Catalog=pos_tech_staging;Persist Security Info=False;User ID=user01;Password=huaHhbSyjn9bttt;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+          ConnectionStrings__DefaultConnection: 
 
       - name: Implantar aplicativo no azure
         uses: azure/webapps-deploy@v3
