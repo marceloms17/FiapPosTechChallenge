@@ -26,6 +26,12 @@ jobs:
 
       - name: Publicar projeto
         run: dotnet publish Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj -c Release -o ${{ github.workspace }}/publish
+      
+      - name: Instalar dotnet-ef CLI
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Adicionar ferramentas globais ao PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
       - name: Aplicar scripts de migração
         run: dotnet ef database update --project Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
