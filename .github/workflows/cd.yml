@@ -37,12 +37,19 @@ jobs:
         run: dotnet ef database update --project Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
         env:
           ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
-
+          
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_00CA1B0E042E43FC961DF1A6D82C97C8 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4E6AD5A339E14C8C8EF96C0F09C47B7F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1DC92538FFDD4181A1958F5BB3D4E32F }}
+          
       - name: Implantar aplicativo no azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Fiap'
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          slot-name: 'Production'
           package: ${{ github.workspace }}/publish
 
       # - name: Notify Slack after deploy (descomente e configure o webhook)
