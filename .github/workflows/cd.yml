@@ -36,7 +36,7 @@ jobs:
       - name: Aplicar scripts de migração
         run: dotnet ef database update --project Core.PosTech8Nett/src/Core.PosTech8Nett.Api/Core.PosTech8Nett.Api.csproj
         env:
-          ConnectionStrings__DefaultConnection: 
+          ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTION_STRING }}
 
       - name: Implantar aplicativo no azure
         uses: azure/webapps-deploy@v3
