@@ -11,13 +11,13 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
     {
         // Contador de requisições com sucesso por endpoint
         private readonly Counter _successCounter;
-        
+
         // Contador de falhas por endpoint e tipo de erro
         private readonly Counter _errorCounter;
-        
+
         // Medidor de tempo de resposta por endpoint
         private readonly Histogram _responseTimeHistogram;
-        
+
         // Medidor de tamanho de resposta em bytes
         private readonly Histogram _responseSizeHistogram;
 
