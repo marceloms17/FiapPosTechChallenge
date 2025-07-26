@@ -14,6 +14,9 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
 
         // Contador de falhas por endpoint e tipo de erro
         private readonly Counter _errorCounter;
+        
+        // Contador específico para códigos de status HTTP
+        private readonly Counter _httpStatusCounter;
 
         // Medidor de tempo de resposta por endpoint
         private readonly Histogram _responseTimeHistogram;
@@ -45,6 +48,15 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
                 new CounterConfiguration
                 {
                     LabelNames = new[] { "endpoint", "error_type" }
+                });
+                
+            // Inicializa o contador de códigos de status HTTP
+            _httpStatusCounter = Metrics.CreateCounter(
+                "app_http_status_total",
+                "Total de requisições por código de status HTTP",
+                new CounterConfiguration
+                {
+                    LabelNames = new[] { "endpoint", "method", "status_code", "status_class" }
                 });
 
             // Inicializa o histograma de tempo de resposta
@@ -105,6 +117,22 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
         public void RecordResponseSize(string endpoint, double bytes)
         {
             _responseSizeHistogram.WithLabels(endpoint).Observe(bytes);
+        }
+        
+        /// <summary>
+        /// Registra um código de status HTTP
+        /// </summary>
+        /// <param name="endpoint">O endpoint da requisição</param>
+        /// <param name="method">O método HTTP (GET, POST, etc.)</param>
+        /// <param name="statusCode">O código de status HTTP</param>
+        public void RecordHttpStatus(string endpoint, string method, int statusCode)
+        {
+            // Determina a classe do status HTTP (1xx, 2xx, 3xx, 4xx, 5xx)
+            string statusClass = $"{statusCode / 100}xx";
+            
+            _httpStatusCounter
+                .WithLabels(endpoint, method, statusCode.ToString(), statusClass)
+                .Inc();
         }
 
         /// <summary>

@@ -46,6 +46,9 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
 
                 stopwatch.Stop();
                 var statusCode = context.Response.StatusCode;
+                
+                // Registra o código de status HTTP
+                _metrics.RecordHttpStatus(endpoint, context.Request.Method, statusCode);
 
                 // Registra métricas de sucesso (2xx)
                 if (statusCode >= 200 && statusCode < 300)
@@ -66,6 +69,9 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
             catch (Exception ex)
             {
                 stopwatch.Stop();
+                
+                // Registra código de status 500 para exceções não tratadas
+                _metrics.RecordHttpStatus(endpoint, context.Request.Method, 500);
                 _metrics.RecordError(endpoint, ex.GetType().Name);
                 _metrics.RecordResponseTime(endpoint, stopwatch.Elapsed.TotalSeconds);
                 throw;
