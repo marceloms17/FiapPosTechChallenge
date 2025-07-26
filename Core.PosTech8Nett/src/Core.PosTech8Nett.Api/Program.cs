@@ -7,6 +7,7 @@ using Core.PosTech8Nett.Api.Infra.Identity.Extension;
 using Core.PosTech8Nett.Api.Infra.Logs;
 using Core.PosTech8Nett.Api.Infra.Logs.Extension;
 using Core.PosTech8Nett.Api.Infra.Migration.Extension;
+using Core.PosTech8Nett.Api.Infra.Monitoring;
 using Core.PosTech8Nett.Api.Infra.Services.Extensions;
 using Core.PosTech8Nett.Api.Infra.Swagger.Extension;
 using Core.PosTech8Nett.Api.Infra.Swagger.Middleware;
@@ -30,15 +31,38 @@ builder.Services.AddIdentityExtension();
 builder.Services.AddAuthorizationExtension(builder.Configuration);
 builder.Services.AddIoC();
 
+// Adiciona configuraÃ§Ã£o CORS para permitir solicitaÃ§Ãµes do Prometheus
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+// Adiciona monitoramento com Prometheus
+builder.Services.AddPrometheusMonitoring();
+builder.Services.AddMetricsCollector();
+
 var app = builder.Build();
 
 app.ExecuteMigrations();
 var apiVersionDescriptionProvider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-app.UseAuthentication();                        // 1º: popula HttpContext.User
-app.UseMiddleware<RoleAuthorizationMiddleware>(); // 2º: seu middleware
+app.UseAuthentication();                        // 1ï¿½: popula HttpContext.User
+app.UseMiddleware<RoleAuthorizationMiddleware>(); // 2ï¿½: seu middleware
 app.UseCorrelationId();
+
+// Adiciona CORS antes de outros middlewares
+app.UseCors("AllowAll");
+
+// Adiciona middleware de monitoramento
+app.UsePrometheusMonitoring();
+app.UseMetricsMiddleware();
+
 app.UseVersionedSwagger(apiVersionDescriptionProvider);
-app.UseAuthorization();                         // 3º: aplica [Authorize]
+app.UseAuthorization();                         // 3ï¿½: aplica [Authorize]
 app.MapControllers();
 app.Run();

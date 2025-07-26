@@ -74,6 +74,11 @@ bld/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
+../.vs/
+# Visual Studio SQLite files
+*.sqlite
+*.sqlite-journal
+# VS Code files
 .vscode/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
@@ -396,3 +401,9 @@ coverage.*.xml
 
 
 *log[s]*.txt
+
+# SQLite files em qualquer lugar (incluindo diretórios pais)
+**/*.sqlite
+**/*.sqlite-journal
+../**/*.sqlite
+../**/*.sqlite-journal
