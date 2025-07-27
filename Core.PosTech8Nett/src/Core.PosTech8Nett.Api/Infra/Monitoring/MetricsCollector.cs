@@ -14,7 +14,7 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
 
         // Contador de falhas por endpoint e tipo de erro
         private readonly Counter _errorCounter;
-        
+
         // Contador específico para códigos de status HTTP
         private readonly Counter _httpStatusCounter;
 
@@ -49,7 +49,7 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
                 {
                     LabelNames = new[] { "endpoint", "error_type" }
                 });
-                
+
             // Inicializa o contador de códigos de status HTTP
             _httpStatusCounter = Metrics.CreateCounter(
                 "app_http_status_total",
@@ -118,7 +118,7 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
         {
             _responseSizeHistogram.WithLabels(endpoint).Observe(bytes);
         }
-        
+
         /// <summary>
         /// Registra um código de status HTTP
         /// </summary>
@@ -129,7 +129,7 @@ namespace Core.PosTech8Nett.Api.Infra.Monitoring
         {
             // Determina a classe do status HTTP (1xx, 2xx, 3xx, 4xx, 5xx)
             string statusClass = $"{statusCode / 100}xx";
-            
+
             _httpStatusCounter
                 .WithLabels(endpoint, method, statusCode.ToString(), statusClass)
                 .Inc();
